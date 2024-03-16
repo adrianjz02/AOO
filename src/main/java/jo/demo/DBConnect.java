@@ -6,10 +6,10 @@ public class DBConnect {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection connection = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/dbconnect", "root", ""
+                    "jdbc:mysql://localhost:3306/bd_jo", "root", ""
             );
             Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery("select * from students");
+            ResultSet resultSet = statement.executeQuery("select * from country");
             while (resultSet.next()) {
                 System.out.println(resultSet.getInt(1) + " " + resultSet.getString(2) + " " + resultSet.getString(3));
                 ;
