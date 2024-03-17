@@ -99,4 +99,56 @@ public class DBConnect {
     return athletes;
 }
 
+    public static Country obtenirCountryParId(int id) {
+        String sql = "SELECT * FROM country WHERE countryid = ?";
+    
+        try (Connection connection = connecterDB();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setInt(1, id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+    
+            if (resultSet.next()) {
+                Country country = new Country(
+                    resultSet.getInt("countryid"),
+                    resultSet.getString("nameCountry"),
+                    resultSet.getString("capital"),
+                    resultSet.getInt("population"),
+                    resultSet.getString("relevantPoint"));
+                
+                return country;
+            }
+        } catch (SQLException e) {
+            System.out.println("Erreur lors de la récupération du pays avec l'ID " + id + ": " + e.getMessage());
+        }
+        return null; // Retourne null si aucun pays n'a été trouvé ou en cas d'erreur
+    }
+
+    public static List<Country> obtenirCountries() {
+        List<Country> countries = new ArrayList<>();
+        String sql = "SELECT * FROM country";
+    
+        try (Connection connection = connecterDB();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            ResultSet resultSet = preparedStatement.executeQuery();
+    
+            while (resultSet.next()) {
+                Country country = new Country(
+                    resultSet.getInt("countryid"),
+                    resultSet.getString("nameCountry"),
+                    resultSet.getString("capital"),
+                    resultSet.getInt("population"),
+                    resultSet.getString("relevantPoint"));
+    
+                // Ajoutez le pays à la liste des pays
+                countries.add(country);
+            }
+        } catch (SQLException e) {
+            System.out.println("Erreur lors de la récupération des pays: " + e.getMessage());
+        }
+    
+        return countries;
+    }
+
+
+
 }

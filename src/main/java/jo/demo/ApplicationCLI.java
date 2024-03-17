@@ -13,6 +13,8 @@ public class ApplicationCLI {
         System.out.println("Bienvenue sur la plateforme des JO 2024 !");
         System.out.println("Tapez 'profil' pour afficher tous les profils des athlètes,");
         System.out.println("ou 'profil <ID>' pour afficher les détails d'un athlète spécifique (remplacez <ID> par l'ID de l'athlète).");
+        System.out.println("Tapez 'country' pour afficher tous les pays participants,");
+        System.out.println("ou 'country <ID>' pour afficher les détails d'un pays spécifique (remplacez <ID> par l'ID du pays).");
         System.out.println("Tapez 'quitter' pour fermer l'application.");
 
         String commande;
@@ -34,7 +36,22 @@ public class ApplicationCLI {
                     afficherProfilParId(id);
                 }
             }
-        } else {
+        }
+        if (commande.startsWith("country")) {
+            if (commande.trim().equalsIgnoreCase("country")) {
+                afficherTousLesPays();
+            } else {
+                String[] parts = commande.split(" ");
+                if (parts.length == 2) {
+                    int id = Integer.parseInt(parts[1]);
+                    afficherPaysParId(id);
+                }
+            }
+        }
+        else if (commande.equalsIgnoreCase("quitter")) {
+            System.out.println("Fermeture de l'application...");
+        }
+        else {
             System.out.println("Commande non reconnue. Réessayez.");
         }
     }
@@ -43,6 +60,13 @@ public class ApplicationCLI {
         List<Athlete> athletes = DBConnect.obtenirAthletes();
         for (Athlete athlete : athletes) {
             System.out.println(athlete.getId() + " : " + athlete.getNom() + " " + athlete.getPrenom());
+        }
+    }
+
+    private void afficherTousLesPays() {
+        List<Country> countries = DBConnect.obtenirCountries();
+        for (Country country : countries) {
+            System.out.println(country.getCountryId() + " : " + country.getNameCountry());
         }
     }
 
@@ -58,6 +82,21 @@ public class ApplicationCLI {
             // Ajoutez ici d'autres informations à afficher
         } else {
             System.out.println("Aucun athlète trouvé avec l'ID " + id);
+        }
+    }
+
+    private void afficherPaysParId(int id) {
+        // Cette méthode suppose que vous avez une méthode dans DBConnect ou ailleurs pour obtenir un pays par son ID.
+        Country country = DBConnect.obtenirCountryParId(id);
+        if (country != null) {
+            System.out.println("ID: " + country.getCountryId());
+            System.out.println("Nom: " + country.getNameCountry());
+            System.out.println("Capitale: " + country.getCapital());
+            System.out.println("Population: " + country.getPopulation());
+            System.out.println("Point pertinent: " + country.getRelevantPoint());
+            // Ajoutez ici d'autres informations à afficher
+        } else {
+            System.out.println("Aucun pays trouvé avec l'ID " + id);
         }
     }
 
