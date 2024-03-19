@@ -37,7 +37,7 @@ public class ApplicationCLI {
                 }
             }
         }
-        if (commande.startsWith("country")) {
+        else if (commande.startsWith("country")) {
             if (commande.trim().equalsIgnoreCase("country")) {
                 afficherTousLesPays();
             } else {
