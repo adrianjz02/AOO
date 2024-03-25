@@ -57,22 +57,22 @@ public class ApplicationCLI {
     }
 
     private void afficherTousLesProfils() {
-        List<Athlete> athletes = DBConnect.obtenirAthletes();
+        List<Athlete> athletes = DBConnect.getAthletes();
         for (Athlete athlete : athletes) {
             System.out.println(athlete.getId() + " : " + athlete.getNom() + " " + athlete.getPrenom());
         }
     }
 
     private void afficherTousLesPays() {
-        List<Country> countries = DBConnect.obtenirCountries();
+        List<Country> countries = DBConnect.getCountries();
         for (Country country : countries) {
             System.out.println(country.getCountryId() + " : " + country.getNameCountry());
         }
     }
 
     private void afficherProfilParId(int id) {
-        // Cette méthode suppose que vous avez une méthode dans DBConnect ou ailleurs pour obtenir un athlète par son ID.
-        Athlete athlete = DBConnect.obtenirAthleteParId(id);
+        // Cette méthode suppose que vous avez une méthode dans DBConnect ou ailleurs pour get un athlète par son ID.
+        Athlete athlete = DBConnect.getAthleteParId(id);
         if (athlete != null) {
             System.out.println("ID: " + athlete.getId());
             System.out.println("Nom: " + athlete.getNom());
@@ -86,8 +86,8 @@ public class ApplicationCLI {
     }
 
     private void afficherPaysParId(int id) {
-        // Cette méthode suppose que vous avez une méthode dans DBConnect ou ailleurs pour obtenir un pays par son ID.
-        Country country = DBConnect.obtenirCountryParId(id);
+        // Cette méthode suppose que vous avez une méthode dans DBConnect ou ailleurs pour get un pays par son ID.
+        Country country = DBConnect.getCountryParId(id);
         if (country != null) {
             System.out.println("ID: " + country.getCountryId());
             System.out.println("Nom: " + country.getNameCountry());

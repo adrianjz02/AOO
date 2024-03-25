@@ -6,7 +6,7 @@ import java.util.List;
 
 public class DBConnect {
 
-    // Méthode centralisée pour obtenir une connexion à la base de données
+    // Méthode centralisée pour get une connexion à la base de données
     private static Connection connecterDB() {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -33,7 +33,7 @@ public class DBConnect {
         }
     }
 
-    public static Athlete obtenirAthleteParId(int id) {
+    public static Athlete getAthleteParId(int id) {
         String sql = "SELECT * FROM athleteprofile WHERE athleteid = ?";
     
         try (Connection connection = connecterDB();
@@ -57,7 +57,7 @@ public class DBConnect {
         return null; // Retourne null si aucun athlète n'a été trouvé ou en cas d'erreur
     }
 
-    public static List<Athlete> obtenirAthletes() {
+    public static List<Athlete> getAthletes() {
     List<Athlete> athletes = new ArrayList<>();
     String sql = "SELECT * FROM athleteprofile";
 
@@ -99,7 +99,7 @@ public class DBConnect {
     return athletes;
 }
 
-    public static Country obtenirCountryParId(int id) {
+    public static Country getCountryParId(int id) {
         String sql = "SELECT * FROM country WHERE countryid = ?";
     
         try (Connection connection = connecterDB();
@@ -123,7 +123,7 @@ public class DBConnect {
         return null; // Retourne null si aucun pays n'a été trouvé ou en cas d'erreur
     }
 
-    public static List<Country> obtenirCountries() {
+    public static List<Country> getCountries() {
         List<Country> countries = new ArrayList<>();
         String sql = "SELECT * FROM country";
     
